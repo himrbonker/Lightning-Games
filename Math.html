@@ -903,9 +903,9 @@ const PLAYGAMA_GAMES = [{"t": "Piece of Cake: Merge & Bake", "i": "https://stati
 </script>
 <script>
 // ── NEWS SYSTEM ──────────────────────────────────────────────────
-const NEWS_VERSION = 3;
+const NEWS_VERSION = 4;
 const NEWS_CONTENT = [
-  { date: 'September 4, 2026', title: 'Added 🟢', body: 'Poppy Playtime, Meccha Chameleon, 2v2.io, Brawl Stars, 2000+ more!' },
+  { date: 'September 4, 2026', title: 'Added 🟢', body: 'Poppy Playtime, Meccha Chameleon, 2v2.io, Brawl Stars, and 2000+ More' },
   { date: 'September 4, 2026', title: 'Fixed 🟡', body: 'Minecraft, Kindergarden, and more!' },
   { date: 'September 4, 2026', title: 'Removed 🔴', body: 'Melon Playground' },
 ];
@@ -914,9 +914,11 @@ const NEWS_KEY = 'arcade_news_seen_v';
 function initNews() {
   const seenVersion = parseInt(localStorage.getItem(NEWS_KEY) || '0', 10);
   const badge = document.getElementById('newsBadge');
-  if (seenVersion < NEWS_VERSION) badge.classList.add('visible');
+  const unread = seenVersion < NEWS_VERSION;
+  if (unread) badge.classList.add('visible');
   else badge.classList.remove('visible');
   renderNews();
+  if (unread) setTimeout(openNewsPanel, 3400);
 }
 function renderNews() {
   const container = document.getElementById('newsContent');
